@@ -9,7 +9,7 @@ int main() {
 	char str6 = *"F";
 	char str7 = *"F";
 	char str8 = *"F";
-	int counter = 0;
+	int counter = 1;
 
 	for (int a = 0; a < 2; a++){
 		if (a == 0){
@@ -62,6 +62,8 @@ int main() {
 									}else if (h == 1){
 										str8 = *"T";
 									}
+									printf("%d\n", counter);
+									counter++;
 									printf("\
 										F, F, F, %c,\n\
 										F, F, T, %c,\n\
@@ -71,8 +73,8 @@ int main() {
 										T, F, T, %c,\n\
 										T, T, F, %c,\n\
 										T, T, T, %c\n", str1,str2,str3,str4,str5,str6,str7,str8);
-									counter++;
-									printf("%d\n", counter);
+									
+									
 
 		
 	}
