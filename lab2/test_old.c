@@ -1,5 +1,5 @@
 #include <stdio.h>
-// #include <stdchar.h>
+#include <stdbool.h>
 
 /*
 * Tell the compiler that we intend
@@ -10,75 +10,76 @@
 */
 
 void show_message(void);
-char not(char var);
-char or(char l, char r);
-char and(char l, char r);
-char implies(char l, char r);
-char prop1(char p, char q, char r);
-char prop2(char p, char q, char r);
-char prop3(char p, char q, char r);
-char prop4(char p, char q, char r);
+bool not(bool var);
+bool or(bool l, bool r);
+bool and(bool l, bool r);
+bool implies(bool l, bool r);
+bool prop1(bool p, bool q, bool r);
+bool prop2(bool p, bool q, bool r);
+bool prop3(bool p, bool q, bool r);
+bool prop4(bool p, bool q, bool r);
 /*
 * Another function, but this includes the body of
 * the function. This is a "definition".
 */
 
 int main(){
-	not('F');
-	or('F', 'T');
-	and('T', 'T');
-	implies('T', 'F');
-	char truth[8][3+4];	
+	not(false);
+	or(false, true);
+	and(true, true);
+	implies(true, false);
+	bool truth[8][3+4];	
 	// generate p
 	for(int i = 0; i < 8; i++){
 		if(i < 4){
-		truth[i][0] = 'F';
+		truth[i][0] = false;
 		}else{
-		truth[i][0] = 'T';
+		truth[i][0] = true;
 		}
 	}
 	for(int i = 0; i < 8; i++){
-		printf(truth[i][0] ? "'T'\n" : "'F'\n");	
+		printf(truth[i][0] ? "true\n" : "false\n");	
 
         }
 	printf("new\n");
-	char tick = 'F';
+	bool tick = false;
 	for(int i = 0; i < 8; i++) {
 		truth[i][1] = tick;
 		if (i % 2 != 0&&i != 0){
-			tick = not(tick);
+			tick = !tick;
 		}
 
 	}
-	tick = 'F';
+	tick = false;
 	for(int i = 0; i < 8; i++) {
-		truth[i][2] = not(tick);
+                truth[i][2] = tick;
+                tick = !tick;
 
         }
 
 	for(int i = 0; i < 8; i++){
-                printf(truth[i][1] ? "'T'\n" : "'F'\n");
+                printf(truth[i][1] ? "true\n" : "false\n");
 
         }
 	for(int i = 0; i < 8; i++){
 		truth[i][3] = prop1(truth[i][0], truth[i][1], truth[i][2]);
-		printf(prop1(truth[i][0], truth[i][1], truth[i][2]) ? "a'T'\n" : "a'F'\n");
+		printf(prop1(truth[i][0], truth[i][1], truth[i][2]) ? "atrue\n" : "afalse\n");
 	}
 	for(int i = 0; i < 8; i++){
                 truth[i][4] = prop2(truth[i][0], truth[i][1], truth[i][2]);
-                printf(prop1(truth[i][0], truth[i][1], truth[i][2]) ? "a'T'\n" : "a'F'\n");
+                printf(prop1(truth[i][0], truth[i][1], truth[i][2]) ? "atrue\n" : "afalse\n");
         }
 	for(int i = 0; i < 8; i++){
                 truth[i][5] = prop2(truth[i][0], truth[i][1], truth[i][2]);
-                printf(prop1(truth[i][0], truth[i][1], truth[i][2]) ? "a'T'\n" : "a'F'\n");
+                printf(prop1(truth[i][0], truth[i][1], truth[i][2]) ? "atrue\n" : "afalse\n");
         }
 	for(int i = 0; i < 8; i++){
                 truth[i][6] = prop3(truth[i][0], truth[i][1], truth[i][2]);
-                printf(prop1(truth[i][0], truth[i][1], truth[i][2]) ? "a'T'\n" : "a'F'\n");
+                printf(prop1(truth[i][0], truth[i][1], truth[i][2]) ? "atrue\n" : "afalse\n");
         }
 	for(int i = 0; i < 8; i++){
                 truth[i][7] = prop4(truth[i][0], truth[i][1], truth[i][2]);
-                printf(prop1(truth[i][0], truth[i][1], truth[i][2]) ? "a'T'\n" : "a'F'\n");
+                printf(prop1(truth[i][0], truth[i][1], truth[i][2]) ? "atrue\n" : "afalse\n");
         }
 
 
@@ -87,7 +88,7 @@ int main(){
 	for(int i = 0; i<8; i++){
 		printf("\n");
      		for(int j = 0; j<(3+4); j++){
-			 printf("%c\t", truth[i][j]);
+			 printf(truth[i][j] ? "T\t" : "F\t");
 		}
 	}
      	return(0);
@@ -98,43 +99,43 @@ int main(){
 * This is now a "definition".
 */
 
-char not(char var){
-	if(var == 'T'){
-                return ('F');
+bool not(bool var){
+	if(var){
+                return (false);
         }else{
-                return ('T');
+                return (true);
         }
 }
-char or(char l, char r){
-	if (l == 'T'|| r == 'T'){
-                return ('T');
+bool or(bool l, bool r){
+	if(l||r){
+                return (true);
         }else{
-                return ('F');
+                return (false);
         }
 }
-char and(char l, char r){
-	if (l == 'T' && r == 'T'){
-                return ('T');
+bool and(bool l, bool r){
+	if(l&&r){
+                return (true);
         }else{
-                return ('F');
+                return (false);
         }
 }
-char implies(char l, char r){
-	if ((l == 'T' && r == 'T') || (l == 'F' && r == 'T')){
-		return ('T');
+bool implies(bool l, bool r){
+	if( l<=r){
+		return (true);
 	}else{
-		return('F');
+		return(false);
 	}
 }
-char prop1(char p, char q, char r){
+bool prop1(bool p, bool q, bool r){
 	return and(implies(not(p), q), implies(r, p));
 }
-char prop2(char p, char q, char r){
+bool prop2(bool p, bool q, bool r){
 	return and(or(p, not(q)), or(r, not(implies(p,q))));
 }
-char prop3(char p, char q, char r) {
+bool prop3(bool p, bool q, bool r) {
 	return implies(implies(p,not(and(p, not(q)))), and(p, q));
 }
-char prop4(char p, char q, char r) {
+bool prop4(bool p, bool q, bool r) {
 	return and(and(p, implies(p,q)), not(q));
 }
