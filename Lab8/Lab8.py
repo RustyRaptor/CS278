@@ -1,6 +1,6 @@
 vals = input("Please enter values of a, b, c, and M in this order (separated "
-             "by spaces)"
-             ": ")
+             "by spaces): ")
+
 vals = vals.split(" ")
 vals = [int(x) for x in vals]
 
