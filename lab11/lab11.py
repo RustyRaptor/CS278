@@ -28,8 +28,7 @@ def refer(code, guess):
     return score1
 
 
-nums = list(range(1, 7))
-sequences = [x for x in itertools.product(nums, repeat=4)]
+sequences = [x for x in itertools.product(list(range(1, 7)), repeat=4)]
 possible = [True] * len(sequences)
 
 start = 0
